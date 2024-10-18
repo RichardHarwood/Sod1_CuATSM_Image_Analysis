@@ -92,6 +92,16 @@ The explanation for each column is as follows:
 |  Z_pix | Z pixel size (um)   |
 
 
+For each IMAGE_ID there are 3 files 
+#### 1)	IMAGE_ID + “Tiff_format “
+- This contains the 4 channel ome.tiff 
+#### 2) IMAGE_ID + “mask “
+- This contains the SNc + SN pars reticulata (SNr) 3D mask
+#### 3) IMAGE_ID + “neuron_outline “
+- This contains the SN pars compacta (SNc) region 3D mask
+
+
+
 
 
 
