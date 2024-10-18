@@ -50,7 +50,7 @@ The code to train the model is in the script "sod1_cellpose.ipynb" the key param
 | Use_Data_augmentation  | False  |
 | Pretrained_model | "Cytoplasm2"  |
 
-The code we used was essentially the [ZeroCostDL4Mic]([https://richardharwood.github.io./](https://www.nature.com/articles/s41467-021-22518-0/)) cellpose notebook, however we created a local conda environment as to not be limited by colab sessions running out of resources.
+The code we used was essentially the [ZeroCostDL4Mic](https://www.nature.com/articles/s41467-021-22518-0/) cellpose notebook, however we created a local conda environment as to not be limited by colab sessions running out of resources.
 
 
 
