@@ -1,11 +1,11 @@
 # Sod1_CuATSM_Image_Analysis
 
 The image analysis workflow has 5 main parts:
-1) Hand annotate the region of interest and a sub region of interest containing the neurons
+1) Hand annotate the region of interest and a sub region of interest containing the neurons (prepare_masks_and_other_processing.ijm)
 2) Identify a threshold range to capture SOD1 protein aggregates  
-3) Create a deep learning model (retraining cellpose) to segment neurons (insert notebook name)
-4) Run a batch process to analyze all the images (insert notebook name)
-5) Collate all the CSVs created in step 4 (insert notebook name)
+3) Create a deep learning model (retraining cellpose) to segment neurons (sod1_cellpose.ipynb)
+4) Run a batch process to analyze all the images (CuATSM_treatment_sod_1_loop.ipynb)
+5) Collate all the CSVs created in step 4 (sod_1_csvs.ipynb)
 
 Briefly, here is an example of each step. 
 
@@ -149,11 +149,13 @@ Once the loop is up and running it exports the following files, naming is always
 From the .stls a render is produced for each image, a small handful of the total data is shown in the movie below
 
 <p align="center">
-<img  src="read_me_files/AI_eg_output.gif" width="600" height="600"/> 
+<img  src="read_me_files/sod1_slow.gif" width="600" height="600"/> 
 </p>
 
 
+##  Collate all the CSVs
 
+At this stage, for each image we have a bunch of .CSVs which contain meaningful information. Using the reference csv(s) described above we collate the data to a summary csv with the (sod_1_csvs.ipynb) notebook.
 
 
 
