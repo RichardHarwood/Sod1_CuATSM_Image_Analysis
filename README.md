@@ -24,23 +24,30 @@ Using the FIJI script, the two specific SN regions of interest were manually out
 
 Following ROI selection in the FIJI script, the SOD1 channel intensity was manually thresholded  in FIJI to predetermined/arbitrary signal-to-noise values while the background pixels were reduced to no value. This accounted for variable illumination and image intensities between all images 
 
+<p align="center">
+<img  src="read_me_files/sod_1_thresh.png" width="30%" height="30%"/> 
+</p>
+
+###### Screenshot taken whilst implementing the threshold range workflow
+
 ## Create a deep learning model (retraining cellpose) to segment neurons
 
-A custom trained deep learning artificial intelligence (AI) cellpose model called “cellpose-residual_on_styple_on_concatenation_off_train_folder_2024_04_11_16_19_30.312228”  (see github files 2) was trained for use in downstream neuron stereological analysis. This cellpose model was trained on 50 2-dimensional image slices from 16 z-stack images (from 8 different mice; 10% of cohort) which had been manually segmented by one investigator. It was then applied to an additional set of 8 slices in which neurons had also been manually segmented and counted, resulting stereological counts exhibited an accuracy of 0.72 and f1 score of 0.83. These performance results are similar to previous studies utilising AI tissue-based cell segmentation for images with an increased signal-to-noise ratio (Ghoddousi, 2022; Han, 2023 ). 
+A custom trained deep learning artificial intelligence (AI) cellpose model was trained for use in downstream neuron stereological analysis. This cellpose model was trained on 50 2-dimensional image slices from 16 z-stack images (from 8 different mice; 10% of cohort) which had been manually segmented by one investigator. It was then applied to an additional set of 8 slices in which neurons had also been manually segmented and counted, resulting stereological counts exhibited an accuracy of 0.72 and f1 score of 0.83.
 
 <p align="center">
 <img  src="read_me_files/raw.png" width="30%" height="30%"/> 
 </p>
 
-###### Example 2-dimensional raw image slices from z-stack.
+###### Example# 2D raw image slices from z-stack.
 
 <p align="center">
 <img  src="read_me_files/mask.png" width="30%" height="30%"/> 
 </p>
 
-###### Example 2-dimensional raw image slices from z-stack with corresponding mask to (re)train cellpose. 
+###### Example: 2D raw image slices from z-stack with corresponding mask to (re)train cellpose. 
 
 The code to train the model is in the script "sod1_cellpose.ipynb" the key paramaters used were:
+
 | Input  | Value |
 | ------------- | ------------- |
 | number_of_epochs | 500  |
@@ -104,12 +111,43 @@ For neuron stereology, the python workflow ran the TH channel through the custom
 
 *Cellpose will create ROIs in 2D on each XY slice and then stitch them across slices if the IoU between the mask on the current slice and the next slice is greater than or equal to the stitch_threshold* 
 
-after some trial and error we settled on a stitch_threshold of 0.25. The 3D images was then binarized and cleaned using a dilation, fill holes, erosion and remove small objects sequence. 
-Then produced neuron counts/stereology and 3D reconstructions of their spatial location in the image. Neuronal density was calculated as the number of SNc dopamine neurons divided by the volume of the SNc.
+after some trial and error we settled on a stitch_threshold of 0.25. The 3D images were then binarized and cleaned using a dilation, fill holes, erosion and remove small objects sequence. After cleaning individual cells were labelled using "label image regions". 
+
 
 To capture the non-uniform morphology of an astrocyte, the python workflow applied qsegmentation method of triangular yen thresholding, a size filter removed small objects. The workflow segmented astrocytes to measure and record their volume in the SNc and SNr and created a 3D-reconstruction of their spatial location in the image.
 
 For SOD1 quantification, the python workflow applied the SOD1 manual thresholds. The Python workflow subsequently reports 3D measurements of both cellular (inside neurons and astrocytes) and other SOD1 aggregate volumes within the SNc and SNr regions (as defined by the masks from FIJI). The generation of a spatial profile and quantification of the thresholded SOD1 channel produced a 3D reconstruction allowing visualisation of the spatial localisation of SOD1 aggregates within and outside the different cell types.
+
+Once the loop is up and running it exports the following files, naming is always done by OUT + IMAGE_ID + "what was measured" + "relevant extension")
+
+| File Name  | Explanation |
+| ------------- | ------------- |
+| CELL.stl |  surface geometry of in neuron cells  |
+| g_CELL.stl  | surface geometry of astrocyte cells  |
+| mask.stl  | surface geometry of SNc + SN pars reticulata (SNr) 3D mask  |
+| outline.stl  | surface geometry of SN pars compacta (SNc) region 3D mask |
+| PROTEIN.stl  | surface geometry of all SOD1   |
+| protein_in_cell.stl  | surface geometry of SOD1 in neuron cells   |
+| protein_in_g_cellL.stl  |surface geometry of SOD1 in astrocyte cells  |
+| protein_in_void.stl  | surface geometry of SOD1 in in the void |
+| Cell_Volume.csv  | Cell volume for all individual neuron cells |
+| cells_masked_outside_Volume.csv  | Cell volume for individual neuron cells outside the SN pars compacta (SNc) region 3D mask  |
+| g_Cell_Volume.csv  | Total astrocyte cell volume |
+| gilal_cells_outline_Volume.csv  | Total astrocyte cell volume outside the SN pars compacta (SNc) region 3D mask |
+| MASK_Volume.csv  | Total SNc + SN pars reticulata (SNr) 3D mask volume |
+| OUTLINE_Volume.csv  | Total SN pars compacta (SNc) region 3D mask volume |
+| protein_in_cell_outside_Volume.csv  | SOD 1 volume in neuron cells outside the SN pars compacta (SNc) region 3D mask |
+| Protein_in_cell_Volume.csv  | SOD 1 volume in all neuron cells  |
+| protein_in_g_cell_outside_Volume.csv  | SOD 1 volume in astrocyte cells outside the SN pars compacta (SNc) region 3D mask |
+| protein_in_g_cell_Volume.csv  | SOD 1 volume in all astrocyte cells  |
+| protein_in_void_inside_Volume.csv  | SOD 1 volume in the void inside the SN pars compacta (SNc) region 3D mask|
+| protein_in_void_outside_Volume.csv  | SOD 1 volume in the void outside the SN pars compacta (SNc) region 3D mask |
+| void_inside_Volume.csv  | The volume of the void inside the SN pars compacta (SNc) region 3D mask  |
+| void_outside_Volume.csv  | The volume of the void outside the SN pars compacta (SNc) region 3D mask  |
+| void_Volume.csv  | The total volume of the void  |
+
+From the .stls a render is produced for each image, a small handful of the total data is shown in the movie below
+
 
 
 
