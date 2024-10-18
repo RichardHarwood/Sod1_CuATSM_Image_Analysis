@@ -100,7 +100,7 @@ For each IMAGE_ID there are 3 files
 #### 3) IMAGE_ID + “neuron_outline “
 - This contains the SN pars compacta (SNc) region 3D mask
 
-For neuron stereology, the python workflow ran the tiff z-stack images through the custom trained cellpose model (see github 2, see “Cellpose Model” Section) in order to locate and segment every neuron in the SNc ROI. It is important to note our model was trained on 2D data to produce 3D segmentations of neurons. This is done using “stitching” as described in the cellpose documentation 
+For neuron stereology, the python workflow ran the relevent channel through the custom trained cellpose model in order to locate and segment every neuron in the SNc ROI. It is important to note our model was trained on 2D data to produce 3D segmentations of neurons. This is done using “stitching” as described in the cellpose documentation 
 
 *Cellpose will create ROIs in 2D on each XY slice and then stitch them across slices if the IoU between the mask on the current slice and the next slice is greater than or equal to the stitch_threshold* 
 
