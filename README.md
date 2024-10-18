@@ -35,7 +35,7 @@ A custom trained deep learning artificial intelligence (AI) cellpose model calle
 ###### Example 2-dimensional raw image slices from z-stack.
 
 <p align="center">
-<img  src="read_me_files/raw.png" width="30%" height="30%"/> 
+<img  src="read_me_files/mask.png" width="30%" height="30%"/> 
 </p>
 
 ###### Example 2-dimensional raw image slices from z-stack with corresponding mask to (re)train cellpose. 
@@ -51,6 +51,11 @@ The code to train the model is in the script "sod1_cellpose.ipynb" the key param
 | Pretrained_model | "Cytoplasm2"  |
 
 The code we used was essentially the [ZeroCostDL4Mic](https://www.nature.com/articles/s41467-021-22518-0/) cellpose notebook, however we created a local conda environment as to not be limited by colab sessions running out of resources.
+
+
+## Run a batch process to analyze all the images
+
+To analyse the images with neuron stereology, astrocyte segmentation and SOD1 localisation quantification, an automated custom python workflow (see github 3) was run through Jupyter software to process the tiff images produced during the pre-processing stage. The workflow generated a spatial profile within the inputted SN ROIs for the neurons, astrocytes and SOD1 and forms a three-dimensional (3D) reconstruction allowing visualisation of the spatial localisation of SOD1 aggregates within and outside these cell types. Tiff images were processed in batches of 100 images through the python workflow using internal controls (10% of batch size) across the batches to ensure reliability of the python algorithms. No variation was reported between batches emphasising the reliability and repeatability of the python workflow.
 
 
 
