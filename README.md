@@ -27,8 +27,9 @@ Following ROI selection in the FIJI script, the SOD1 channel intensity was manua
 <p align="center">
 <img  src="read_me_files/sod_1_thresh.png" width="30%" height="30%"/> 
 </p>
+<h6 align="center">Screenshot taken whilst implementing the threshold range workflow</h6>
 
-###### Screenshot taken whilst implementing the threshold range workflow
+
 
 ## Create a deep learning model (retraining cellpose) to segment neurons
 
@@ -37,14 +38,16 @@ A custom trained deep learning artificial intelligence (AI) cellpose model was t
 <p align="center">
 <img  src="read_me_files/raw.png" width="30%" height="30%"/> 
 </p>
+<h6 align="center">2D raw image slices from z-stack</h6>
 
-###### Example: 2D raw image slices from z-stack.
+
 
 <p align="center">
 <img  src="read_me_files/mask.png" width="30%" height="30%"/> 
 </p>
+<h6 align="center">2D raw image slices from z-stack with corresponding mask to (re)train cellpose</h6>
 
-###### Example: 2D raw image slices from z-stack with corresponding mask to (re)train cellpose. 
+
 
 The code to train the model is in the script "sod1_cellpose.ipynb" the key paramaters used were:
 
@@ -57,7 +60,8 @@ The code to train the model is in the script "sod1_cellpose.ipynb" the key param
 | Use_Data_augmentation  | False  |
 | Pretrained_model | "Cytoplasm2"  |
 
-The code we used was essentially the [ZeroCostDL4Mic](https://www.nature.com/articles/s41467-021-22518-0/) cellpose notebook, however we created a local conda environment as to not be limited by colab sessions running out of resources.
+The code we used was essentially the [ZeroCostDL4Mic](https://www.nature.com/articles/s41467-021-22518-0/) cellpose notebook, however we created a local conda environment (SOD_1.yaml) as to not be limited by colab sessions running out of resources.
+The cellpose model described above (along with the data used to train the model) and used in the following steps can be downloaded here (insert download link) 
 
 
 ## Run a batch process to analyze all the images
