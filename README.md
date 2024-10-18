@@ -148,6 +148,10 @@ Once the loop is up and running it exports the following files, naming is always
 
 From the .stls a render is produced for each image, a small handful of the total data is shown in the movie below
 
+<p align="center">
+<img  src="read_me_files/AI_eg_output.gif" width="600" height="600"/> 
+</p>
+
 
 
 
