@@ -100,6 +100,20 @@ For each IMAGE_ID there are 3 files
 #### 3) IMAGE_ID + “neuron_outline “
 - This contains the SN pars compacta (SNc) region 3D mask
 
+For neuron stereology, the python workflow ran the tiff z-stack images through the custom trained cellpose model (see github 2, see “Cellpose Model” Section) in order to locate and segment every neuron in the SNc ROI. It is important to note our model was trained on 2D data to produce 3D segmentations of neurons. This is done using “stitching” as described in the cellpose documentation 
+
+*Cellpose will create ROIs in 2D on each XY slice and then stitch them across slices if the IoU between the mask on the current slice and the next slice is greater than or equal to the stitch_threshold* 
+
+after some trial and error we settled on a stitch_threshold of 0.25. The 3D images was then binarized and cleaned using a dilation, fill holes, erosion and remove small objects sequence. 
+Then produced neuron counts/stereology and 3D reconstructions of their spatial location in the image. Neuronal density was calculated as the number of SNc dopamine neurons divided by the volume of the SNc.
+
+To capture the non-uniform morphology of an astrocyte, the python workflow applied the traditional segmentation method of triangular yen thresholding, adding gaussian blur and size filters removed small objects as well as removing 25-grayscales from background signal to separate cells from background. The workflow segmented astrocytes to measure and record their volume in the SNc and SNr and created a 3D-reconstruction of their spatial location in the image.
+
+For SOD1 quantification, the python workflow applied the SOD1 manual thresholds (see Pre-Processing Section) along with a size exclusion filter to exclude protein pixels too small to be a real aggregate (determined from previously reported SOD1 pathology - in Ageing Paper) and then counted the thresholded protein pixels inside and outside the segmented astrocytes and neurons, converting them into a volume expressed in um3 based on pixel size (1 voxel = 0.125um3 ). The python workflow subsequently reports 3D measurements of both cellular (inside neurons and astrocytes) and other SOD1 aggregate volumes within the SNc and SNr regions (as defined by the masks from FIJI). The generation of a spatial profile and quantification of the thresholded SOD1 channel produced a 3D reconstruction allowing visualisation of the spatial localisation of SOD1 aggregates within and outside the different cell types.
+
+
+
+
 
 
 
