@@ -117,8 +117,7 @@ For neuron stereology, the Python  workflow ran the TH channel through the custo
 
 after some trial and error we settled on a stitch_threshold of 0.25. The 3D images were then binarized and cleaned using a dilation, fill holes, erosion and remove small objects sequence. After cleaning individual cells were labelled using "label image regions". 
 
-
-To capture the non-uniform morphology of an astrocyte, the Python  workflow applied qsegmentation method of triangular yen thresholding, a size filter removed small objects. The workflow segmented astrocytes to measure and record their volume in the SNc and SNr and created a 3D-reconstruction of their spatial location in the image.
+To capture the non-uniform morphology of an astrocyte, the Python  workflow applied a segmentation method using triangular_yen thresholding with a size filter to remove small objects. 
 
 For SOD1 quantification, the Python  workflow applied the SOD1 manual thresholds. The Python  workflow subsequently reports 3D measurements of both cellular (inside neurons and astrocytes) and other SOD1 aggregate volumes within the SNc and SNr regions (as defined by the masks from FIJI). The generation of a spatial profile and quantification of the thresholded SOD1 channel produced a 3D reconstruction allowing visualisation of the spatial localisation of SOD1 aggregates within and outside the different cell types.
 
