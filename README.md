@@ -24,19 +24,36 @@ Using the FIJI script, the two specific SN regions of interest were manually out
 
 Following ROI selection in the FIJI script, the SOD1 channel intensity was manually thresholded  in FIJI to predetermined/arbitrary signal-to-noise values while the background pixels were reduced to no value. This accounted for variable illumination and image intensities between all images 
 
-###### Create a deep learning model (retraining cellpose) to segment neurons
+## Create a deep learning model (retraining cellpose) to segment neurons
 
 A custom trained deep learning artificial intelligence (AI) cellpose model called “cellpose-residual_on_styple_on_concatenation_off_train_folder_2024_04_11_16_19_30.312228”  (see github files 2) was trained for use in downstream neuron stereological analysis. This cellpose model was trained on 50 2-dimensional image slices from 16 z-stack images (from 8 different mice; 10% of cohort) which had been manually segmented by one investigator. It was then applied to an additional set of 8 slices in which neurons had also been manually segmented and counted, resulting stereological counts exhibited an accuracy of 0.72 and f1 score of 0.83. These performance results are similar to previous studies utilising AI tissue-based cell segmentation for images with an increased signal-to-noise ratio (Ghoddousi, 2022; Han, 2023 ). 
 
 <p align="center">
 <img  src="read_me_files/raw.png" width="30%" height="30%"/> 
 </p>
+
 ###### Example 2-dimensional raw image slices from z-stack.
 
 <p align="center">
 <img  src="read_me_files/raw.png" width="30%" height="30%"/> 
 </p>
+
 ###### Example 2-dimensional raw image slices from z-stack with corresponding mask to (re)train cellpose. 
+
+The code to train the model is in the script "sod1_cellpose.ipynb" the key paramaters used were:
+| Input  | Value |
+| ------------- | ------------- |
+| number_of_epochs | 500  |
+| initial_learning_rate  | 0.1  |
+| batch_size | 16  |
+| percentage_validation  | 20  |
+| Use_Data_augmentation  | False  |
+| Pretrained_model | "Cytoplasm2"  |
+
+The code we used was essentially the [ZeroCostDL4Mic]([https://richardharwood.github.io./](https://www.nature.com/articles/s41467-021-22518-0/)) cellpose notebook, however we created a local conda environment as to not be limited by colab sessions running out of resources.
+
+
+
 
 
 
