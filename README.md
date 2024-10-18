@@ -55,9 +55,41 @@ The code we used was essentially the [ZeroCostDL4Mic](https://www.nature.com/art
 
 ## Run a batch process to analyze all the images
 
-To analyse the images with neuron stereology, astrocyte segmentation and SOD1 localisation quantification, an automated custom python workflow (see github 3) was run through Jupyter software to process the tiff images produced during the pre-processing stage. The workflow generated a spatial profile within the inputted SN ROIs for the neurons, astrocytes and SOD1 and forms a three-dimensional (3D) reconstruction allowing visualisation of the spatial localisation of SOD1 aggregates within and outside these cell types. Tiff images were processed in batches of 100 images through the python workflow using internal controls (10% of batch size) across the batches to ensure reliability of the python algorithms. No variation was reported between batches emphasising the reliability and repeatability of the python workflow.
+To analyse the images with neuron stereology, astrocyte segmentation and SOD1 localisation quantification, an automated custom python workflow (SOD_1_image_analysis_loop.ipynb) was used to process the tiff images produced during the pre-processing stage. The workflow generated a spatial profile within the inputted SN ROIs for the neurons, astrocytes and SOD1 and forms a three-dimensional (3D) reconstruction allowing visualisation of the spatial localisation of SOD1 aggregates within and outside these cell types.
 
+The workflow is based of a "ref_master_csv, with the following structure:
 
+| Directonary                                            | IMAGE_ID                      | min_thresh | max_thresh | first_slice | last_slice | Genptype | Treatment | Width (Pixels) | With (um) | Height (Pixels) | Height (um) | C dim | Z dim | T dim | X_pix | Y_pix | Z_pix |
+|--------------------------------------------------------|-------------------------------|------------|------------|-------------|------------|----------|-----------|----------------|-----------|-----------------|-------------|-------|-------|-------|-------|-------|-------|
+| R:\PRJ-SOD1_AI\cuatsm_treatment_sod_1_analysis_200_300 | MS167_SN_Z01_1_VC_Tiff_format | 370        | 698        | 2           | 35         | SOCK     | SSV       | 12246          | 1408.29   | 10890           | 1252.3      | 4     | 41    | 1     | 0.115 | 0.115 | 0.5   |
+| R:\PRJ-SOD1_AI\cuatsm_treatment_sod_1_analysis_200_300 | MS167_SN_Z01_2_VC_Tiff_format | 374        | 698        | 3           | 36         | SOCK     | SSV       | 12246          | 1408.29   | 10890           | 1252.3      | 4     | 41    | 1     | 0.115 | 0.115 | 0.5   |
+| R:\PRJ-SOD1_AI\cuatsm_treatment_sod_1_analysis_200_300 | MS167_SN_Z03_1_VC_Tiff_format | 381        | 698        | 1           | 39         | SOCK     | SSV       | 17910          | 2059.66   | 12480           | 1435.2      | 4     | 41    | 1     | 0.115 | 0.115 | 0.5   |
+| R:\PRJ-SOD1_AI\cuatsm_treatment_sod_1_analysis_200_300 | MS167_SN_Z03_2_VC_Tiff_format | 377        | 698        | 1           | 36         | SOCK     | SSV       | 17910          | 2059.66   | 12480           | 1435.2      | 4     | 41    | 1     | 0.115 | 0.115 | 0.5   |
+| R:\PRJ-SOD1_AI\cuatsm_treatment_sod_1_analysis_200_300 | MS167_SN_Z05_1_VC_Tiff_format | 367        | 698        | 1           | 33         | SOCK     | SSV       | 16272          | 1871.29   | 10584           | 1217.16     | 4     | 41    | 1     | 0.115 | 0.115 | 0.5   |
+| R:\PRJ-SOD1_AI\cuatsm_treatment_sod_1_analysis_200_300 | MS167_SN_Z05_2_VC_Tiff_format | 381        | 698        | 1           | 38         | SOCK     | SSV       | 16272          | 1871.29   | 10584           | 1217.16     | 4     | 41    | 1     | 0.115 | 0.115 | 0.5   |
+| R:\PRJ-SOD1_AI\cuatsm_treatment_sod_1_analysis_200_300 | MS167_SN_Z07_1_VC_Tiff_format | 377        | 698        | 1           | 35         | SOCK     | SSV       | 13200          | 1518      | 13272           | 1526.28     | 4     | 41    | 1     | 0.115 | 0.115 | 0.5   |
+
+The explanation for each column is as follows:
+
+| Column Title  | Explanation |
+| ------------- | ------------- |
+| Directonary | The location of the image  |
+| IMAGE_ID  | A unique ID for each image  |
+| min_thresh | min grayscale range for indetifying SOD1  |
+| max_thresh  | max grayscale range for indetifying SOD1  |
+| first_slice  | crops the image  |
+| last_slice | crops the image   |
+| Genptype  | identifies the genotype  |
+| Width (Pixels) | image width in pixels   |
+|  With (um)  | image width in micron   |
+| Height (Pixels) |  image height in pixels   |
+| Height (um) |  image height in micron   |
+|  C dim | number of channels  |
+| Z dim | number of Z slices   |
+| T dim | number of time channels   |
+|  X_pix| X pixel size (um)  |
+|  Y_pix | Y pixel size (um)   |
+|  Z_pix | Z pixel size (um)   |
 
 
 
