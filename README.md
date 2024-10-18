@@ -38,7 +38,7 @@ A custom trained deep learning artificial intelligence (AI) cellpose model was t
 <img  src="read_me_files/raw.png" width="30%" height="30%"/> 
 </p>
 
-###### Example# 2D raw image slices from z-stack.
+###### Example: 2D raw image slices from z-stack.
 
 <p align="center">
 <img  src="read_me_files/mask.png" width="30%" height="30%"/> 
@@ -62,7 +62,7 @@ The code we used was essentially the [ZeroCostDL4Mic](https://www.nature.com/art
 
 ## Run a batch process to analyze all the images
 
-To analyse the images with neuron stereology, astrocyte segmentation and SOD1 localisation quantification, an automated custom python workflow (SOD_1_image_analysis_loop.ipynb) was used to process the tiff images produced during the pre-processing stage. The workflow generated a spatial profile within the inputted SN ROIs for the neurons, astrocytes and SOD1 and forms a three-dimensional (3D) reconstruction allowing visualisation of the spatial localisation of SOD1 aggregates within and outside these cell types.
+To analyse the images with neuron stereology, astrocyte segmentation and SOD1 localisation quantification, an automated custom Python workflow (SOD_1_image_analysis_loop.ipynb) was used to process the tiff images produced during the pre-processing stage. The workflow generated a spatial profile within the inputted SN ROIs for the neurons, astrocytes and SOD1 and forms a three-dimensional (3D) reconstruction allowing visualisation of the spatial localisation of SOD1 aggregates within and outside these cell types.
 
 The workflow is based of a "ref_master_csv, with the following structure:
 
@@ -107,16 +107,16 @@ For each IMAGE_ID there are 3 files
 #### 3) IMAGE_ID + “neuron_outline “
 - This contains the SN pars compacta (SNc) region 3D mask
 
-For neuron stereology, the python workflow ran the TH channel through the custom trained cellpose model in order to locate and segment every neuron in the SNc ROI. It is important to note our model was trained on 2D data to produce 3D segmentations of neurons. This is done using “stitching” as described in the cellpose documentation 
+For neuron stereology, the Python  workflow ran the TH channel through the custom trained cellpose model in order to locate and segment every neuron in the SNc ROI. It is important to note our model was trained on 2D data to produce 3D segmentations of neurons. This is done using “stitching” as described in the cellpose documentation 
 
 *Cellpose will create ROIs in 2D on each XY slice and then stitch them across slices if the IoU between the mask on the current slice and the next slice is greater than or equal to the stitch_threshold* 
 
 after some trial and error we settled on a stitch_threshold of 0.25. The 3D images were then binarized and cleaned using a dilation, fill holes, erosion and remove small objects sequence. After cleaning individual cells were labelled using "label image regions". 
 
 
-To capture the non-uniform morphology of an astrocyte, the python workflow applied qsegmentation method of triangular yen thresholding, a size filter removed small objects. The workflow segmented astrocytes to measure and record their volume in the SNc and SNr and created a 3D-reconstruction of their spatial location in the image.
+To capture the non-uniform morphology of an astrocyte, the Python  workflow applied qsegmentation method of triangular yen thresholding, a size filter removed small objects. The workflow segmented astrocytes to measure and record their volume in the SNc and SNr and created a 3D-reconstruction of their spatial location in the image.
 
-For SOD1 quantification, the python workflow applied the SOD1 manual thresholds. The Python workflow subsequently reports 3D measurements of both cellular (inside neurons and astrocytes) and other SOD1 aggregate volumes within the SNc and SNr regions (as defined by the masks from FIJI). The generation of a spatial profile and quantification of the thresholded SOD1 channel produced a 3D reconstruction allowing visualisation of the spatial localisation of SOD1 aggregates within and outside the different cell types.
+For SOD1 quantification, the Python  workflow applied the SOD1 manual thresholds. The Python  workflow subsequently reports 3D measurements of both cellular (inside neurons and astrocytes) and other SOD1 aggregate volumes within the SNc and SNr regions (as defined by the masks from FIJI). The generation of a spatial profile and quantification of the thresholded SOD1 channel produced a 3D reconstruction allowing visualisation of the spatial localisation of SOD1 aggregates within and outside the different cell types.
 
 Once the loop is up and running it exports the following files, naming is always done by OUT + IMAGE_ID + "what was measured" + "relevant extension")
 
@@ -128,7 +128,7 @@ Once the loop is up and running it exports the following files, naming is always
 | outline.stl  | surface geometry of SN pars compacta (SNc) region 3D mask |
 | PROTEIN.stl  | surface geometry of all SOD1   |
 | protein_in_cell.stl  | surface geometry of SOD1 in neuron cells   |
-| protein_in_g_cellL.stl  |surface geometry of SOD1 in astrocyte cells  |
+| protein_in_g_cell.stl  |surface geometry of SOD1 in astrocyte cells  |
 | protein_in_void.stl  | surface geometry of SOD1 in in the void |
 | Cell_Volume.csv  | Cell volume for all individual neuron cells |
 | cells_masked_outside_Volume.csv  | Cell volume for individual neuron cells outside the SN pars compacta (SNc) region 3D mask  |
