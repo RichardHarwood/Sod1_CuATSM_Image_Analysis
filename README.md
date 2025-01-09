@@ -160,6 +160,11 @@ From the .stls a render is produced for each image, a small handful of the total
 
 At this stage, for each image we have a bunch of .CSVs which contain meaningful information. Using the reference csv(s) described above we collate the data to a summary csv with the (sod_1_csvs.ipynb) notebook.
 
+## Additinal workflows 
+Spinal_Motor_Neuron_Segmentation_Quant.ijm
+
+Automated segmentation was performed via a FIJI software script that imported the multiplex images into FIJI and split them into single channel images. Nuclei that were immunopositive for ISL-1 (488nm channel) were then pre-processed using enhanced contrast (saturation: 0.2%, normalize histogram) and background subtraction (rolling ball radius:100 pixels), before image thresholding applied using the yen method, which was chosen as the most appropriate of 17 methods trialed. Fill holes and erode were applied to binary masks followed by segmentation using analyze particle analysis (size: 0.5- infinity, circularity: 0.1-1). To confirm double staining of motor neurons, segmented ISL-1 nuclei were then overlayed on ChAT immunopositive staining (647nm channel, min and max intensity: 50- 700) and each ISL-1 nuclei particle expanded proportional to its respective feret diameter. Average 488nm and 647nm intensities and area measures were recorded in overlap zones, while background 647nm intensity was measured as a 500x 500-pixel box overlayed over areas of background on a subset of the data (30% images). Positive motor neurons were counted when they had both ISL-1 nuceli segmentation and proximal ChAT staining above background.
+
 
 
 
