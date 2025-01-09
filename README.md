@@ -86,8 +86,8 @@ The explanation for each column is as follows:
 | ------------- | ------------- |
 | Directonary | The location of the image  |
 | IMAGE_ID  | A unique ID for each image  |
-| min_thresh | min grayscale range for indetifying SOD1  |
-| max_thresh  | max grayscale range for indetifying SOD1  |
+| min_thresh | min grayscale range for identifying SOD1  |
+| max_thresh  | max grayscale range for identifying SOD1  |
 | first_slice  | crops the image  |
 | last_slice | crops the image   |
 | Genptype  | identifies the genotype  |
