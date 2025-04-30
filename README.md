@@ -70,7 +70,7 @@ To analyse the images with neuron stereology, astrocyte segmentation and SOD1 lo
 
 The workflow is based of a "ref_master_csv, with the following structure:
 
-| Directonary                                            | IMAGE_ID                      | min_thresh | max_thresh | first_slice | last_slice | Genptype | Treatment | Width (Pixels) | With (um) | Height (Pixels) | Height (um) | C dim | Z dim | T dim | X_pix | Y_pix | Z_pix |
+| Directonary                                            | IMAGE_ID                      | min_thresh | max_thresh | first_slice | last_slice | Genptype | Treatment | Width (Pixels) | Width (um) | Height (Pixels) | Height (um) | C dim | Z dim | T dim | X_pix | Y_pix | Z_pix |
 |--------------------------------------------------------|-------------------------------|------------|------------|-------------|------------|----------|-----------|----------------|-----------|-----------------|-------------|-------|-------|-------|-------|-------|-------|
 | R:\PRJ-SOD1_AI\cuatsm_treatment_sod_1_analysis_200_300 | MS167_SN_Z01_1_VC_Tiff_format | 370        | 698        | 2           | 35         | SOCK     | SSV       | 12246          | 1408.29   | 10890           | 1252.3      | 4     | 41    | 1     | 0.115 | 0.115 | 0.5   |
 | R:\PRJ-SOD1_AI\cuatsm_treatment_sod_1_analysis_200_300 | MS167_SN_Z01_2_VC_Tiff_format | 374        | 698        | 3           | 36         | SOCK     | SSV       | 12246          | 1408.29   | 10890           | 1252.3      | 4     | 41    | 1     | 0.115 | 0.115 | 0.5   |
